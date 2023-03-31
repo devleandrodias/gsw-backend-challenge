@@ -1,0 +1,13 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ATM API Documentation",
+    "description": "This is an ATM API documentation to GSW code challenge",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Leandro Dias",
+      "url": "https://leandrodbdias.dev",
+      "email": "leandrodbdias@gmail.com"
+    }
+  }
+}
