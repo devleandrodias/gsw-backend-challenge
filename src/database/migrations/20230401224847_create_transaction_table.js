@@ -3,9 +3,10 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable("tabela_teste", (table) => {
+  return knex.schema.createTable("transactions", (table) => {
     table.increments("id").primary();
-    table.string("nome").notNullable();
+    table.integer("amount").notNullable();
+    table.enum("type", ["DEPOSIT", "WITHDRAWAL"]).notNullable();
     table.timestamps(true, true);
   });
 };
@@ -15,5 +16,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable("tabela_teste");
+  return knex.schema.dropTable("transactions");
 };

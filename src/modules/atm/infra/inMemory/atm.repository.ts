@@ -7,22 +7,10 @@ import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 export class ATMInMemoryRepository implements IATMRepository {
   async getAvailableBankNotes(): Promise<IBankNote[]> {
     return [
-      {
-        value: 100,
-        quantityAvailable: 3,
-      },
-      {
-        value: 50,
-        quantityAvailable: 1,
-      },
-      {
-        value: 20,
-        quantityAvailable: 1000,
-      },
-      {
-        value: 10,
-        quantityAvailable: 1000,
-      },
+      { value: 100, quantityAvailable: 1000 },
+      { value: 50, quantityAvailable: 1000 },
+      { value: 20, quantityAvailable: 1000 },
+      { value: 10, quantityAvailable: 1000 },
     ];
   }
 }

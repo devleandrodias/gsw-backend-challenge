@@ -4,8 +4,8 @@ import { container } from "tsyringe";
 
 import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
+import { TransactionRepository } from "@modules/transaction/infra/knex/transaction.repository";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
-import { TransactionInMemoryRepository } from "@modules/transaction/infra/inMemory/transaction.repository";
 
 container.registerSingleton<IATMRepository>(
   "ATMRepository",
@@ -14,5 +14,5 @@ container.registerSingleton<IATMRepository>(
 
 container.registerSingleton<ITransactionRepository>(
   "TransactionRepository",
-  TransactionInMemoryRepository
+  TransactionRepository
 );

@@ -1,7 +1,9 @@
 import { ETransactionType } from "@shared/enuns/ETransactionType";
 
 export interface ITransaction {
-  id: string;
+  id: number;
   amount: number;
   type: ETransactionType;
+  createdAt: Date;
+  updatedAt: Date;
 }
