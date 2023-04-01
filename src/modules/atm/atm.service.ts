@@ -1,30 +1,31 @@
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
+
+import { IATMRepository } from "./atm.repository";
 
 @injectable()
 export class ATMService {
-  private balance: number;
+  constructor(
+    @inject("ATMRepository")
+    private atmRepository: IATMRepository
+  ) {}
 
-  constructor() {
-    this.balance = 10000;
-  }
-
-  async deposit(value: number) {
-    this.balance += value;
+  async deposit(value: number): Promise<void> {
+    await this.atmRepository.deposit(value);
   }
 
   async withdraw(value: number): Promise<void> {
-    if (this.balance < value) {
+    const currentBalance = (await this.atmRepository.extract()).balance;
+
+    if (currentBalance < value) {
       throw new Error(
         "Nao é possível sacar um valor maior do que o diponivel em conta"
       );
     }
 
-    this.balance += value;
+    this.atmRepository.withdraw(value);
   }
 
-  async extract() {
-    return {
-      balance: this.balance,
-    };
+  async extract(): Promise<{ balance: number }> {
+    return this.atmRepository.extract();
   }
 }
