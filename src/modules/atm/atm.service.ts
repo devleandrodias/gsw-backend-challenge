@@ -1,7 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
-import { IATMRepository } from "./repositories/IATMRepository";
 import { IATMWithdrawRequest } from "./infra/http/atm.controller";
+
+import {
+  IATMRepository,
+  IDepositOutput,
+  IExtractOutput,
+  IWithdrawOutput,
+} from "./repositories/IATMRepository";
 
 @injectable()
 export class ATMService {
@@ -10,11 +16,11 @@ export class ATMService {
     private readonly atmRepository: IATMRepository
   ) {}
 
-  async deposit({ value }: IATMWithdrawRequest): Promise<void> {
-    await this.atmRepository.deposit(value);
+  async deposit({ value }: IATMWithdrawRequest): Promise<IDepositOutput> {
+    return this.atmRepository.deposit(value);
   }
 
-  async withdraw({ value }: IATMWithdrawRequest): Promise<void> {
+  async withdraw({ value }: IATMWithdrawRequest): Promise<IWithdrawOutput> {
     const currentBalance = (await this.atmRepository.extract()).balance;
 
     if (currentBalance < value) {
@@ -23,10 +29,10 @@ export class ATMService {
       );
     }
 
-    await this.atmRepository.withdraw(value);
+    return this.atmRepository.withdraw(value);
   }
 
-  async extract(): Promise<{ balance: number }> {
+  async extract(): Promise<IExtractOutput> {
     return this.atmRepository.extract();
   }
 }

@@ -1,5 +1,20 @@
+export interface IExtractOutput {
+  balance: number;
+}
+
+export interface IDepositOutput {
+  balance: number;
+}
+
+export interface IWithdrawOutput {
+  result: {
+    banknoteValue: number;
+    banknoteQuantity: number;
+  }[];
+}
+
 export interface IATMRepository {
-  deposit(value: number): Promise<void>;
-  withdraw(value: number): Promise<void>;
-  extract(): Promise<{ balance: number }>;
+  extract(): Promise<IExtractOutput>;
+  deposit(value: number): Promise<IDepositOutput>;
+  withdraw(value: number): Promise<IWithdrawOutput>;
 }

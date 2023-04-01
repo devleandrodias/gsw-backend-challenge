@@ -21,9 +21,9 @@ export class ATMController {
     ATMValidation.validateDeposit(request);
 
     const atmService = container.resolve(ATMService);
-    await atmService.deposit(request);
+    const response = await atmService.deposit(request);
 
-    res.status(StatusCodes.OK).send();
+    res.status(StatusCodes.OK).json(response);
   }
 
   async withdraw(req: Request, res: Response): Promise<void> {
@@ -33,14 +33,15 @@ export class ATMController {
     ATMValidation.validateWithdraw(request);
 
     const atmService = container.resolve(ATMService);
-    await atmService.withdraw(request);
+    const response = await atmService.withdraw(request);
 
-    res.status(StatusCodes.OK).send();
+    res.status(StatusCodes.OK).json(response);
   }
 
   async extract(_: Request, res: Response): Promise<void> {
     const atmService = container.resolve(ATMService);
-    const balance = await atmService.extract();
-    res.status(StatusCodes.OK).json(balance);
+    const response = await atmService.extract();
+
+    res.status(StatusCodes.OK).json(response);
   }
 }
