@@ -8,16 +8,20 @@ export class TransactionInMemoryRepository implements ITransactionRepository {
   private readonly transactions: ITransaction[] = [];
 
   async getBalance(): Promise<number> {
-    return this.transactions.reduce((total, transaction) => {
+    let balance = 0;
+
+    for (const transaction of this.transactions) {
       switch (transaction.type) {
-        case "DEPOSIT":
-          return total + transaction.amount;
-        case "WITHDRAWAL":
-          return total - transaction.amount;
-        default:
-          return total;
+        case ETransactionType.DEPOSIT:
+          balance += transaction.amount;
+          break;
+        case ETransactionType.WITHDRAWAL:
+          balance -= transaction.amount;
+          break;
       }
-    }, 0);
+    }
+
+    return balance;
   }
 
   async getTransactions(): Promise<ITransaction[]> {

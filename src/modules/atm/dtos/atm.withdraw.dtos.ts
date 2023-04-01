@@ -1,5 +1,5 @@
 export interface IATMWithdrawInput {
-  value: number;
+  amount: number;
 }
 
 export interface IBankNote {

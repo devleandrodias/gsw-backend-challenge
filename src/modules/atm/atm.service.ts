@@ -18,21 +18,21 @@ export class ATMService {
     private readonly atmRepository: IATMRepository
   ) {}
 
-  async deposit({ value }: IATMDepositInput): Promise<IATMDepositOutput> {
-    return this.atmRepository.deposit(value);
+  async deposit({ amount }: IATMDepositInput): Promise<IATMDepositOutput> {
+    return this.atmRepository.deposit(amount);
   }
 
-  async withdraw({ value }: IATMWithdrawInput): Promise<IATMWithdrawOutput> {
+  async withdraw({ amount }: IATMWithdrawInput): Promise<IATMWithdrawOutput> {
     const currentBalance = (await this.atmRepository.extract()).balance;
 
-    if (currentBalance < value) {
+    if (currentBalance < amount) {
       throw new AppError(
         StatusCodes.UNPROCESSABLE_ENTITY,
         "Não é possível sacar um valor maior do que o disponível em conta."
       );
     }
 
-    return this.atmRepository.withdraw(value);
+    return this.atmRepository.withdraw(amount);
   }
 
   async extract(): Promise<IATMExtractOutput> {

@@ -10,8 +10,8 @@ import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
 
 import {
-  IATMWithdrawOutput,
   IBankNote,
+  IATMWithdrawOutput,
 } from "@modules/atm/dtos/atm.withdraw.dtos";
 
 export class ATMInMemoryRepository implements IATMRepository {
@@ -67,5 +67,14 @@ export class ATMInMemoryRepository implements IATMRepository {
     const transactions = await this.transactionRepository.getTransactions();
 
     return { balance, transactions };
+  }
+
+  async getAvailableBankNotes(): Promise<IBankNote[]> {
+    return [
+      { value: 100, quantity: 1000 },
+      { value: 50, quantity: 1000 },
+      { value: 20, quantity: 1000 },
+      { value: 10, quantity: 1000 },
+    ];
   }
 }

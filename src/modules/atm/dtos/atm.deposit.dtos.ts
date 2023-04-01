@@ -1,5 +1,5 @@
 export interface IATMDepositInput {
-  value: number;
+  amount: number;
 }
 
 export interface IATMDepositOutput {
