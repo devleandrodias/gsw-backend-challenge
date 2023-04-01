@@ -8,6 +8,5 @@ export interface IBankNote {
 }
 
 export interface IATMWithdrawOutput {
-  balance: number;
   bankNotes: IBankNote[];
 }
