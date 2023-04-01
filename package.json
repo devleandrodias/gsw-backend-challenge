@@ -9,7 +9,7 @@
     "test:coverage": "jest --coverage",
     "build": "npx tsc",
     "start": "node ./dist/server.js",
-    "dev": "npx ts-node-dev --respawn --transpile-only ./src/shared/infra/http/server.ts"
+    "dev": "npx ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/shared/infra/http/server.ts"
   },
   "keywords": [
     "jest",
@@ -33,6 +33,7 @@
     "joi": "^17.9.1",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.6.2",
+    "tsconfig-paths": "^4.2.0",
     "tsyringe": "^4.7.0"
   },
   "devDependencies": {

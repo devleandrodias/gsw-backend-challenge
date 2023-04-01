@@ -2,22 +2,17 @@ import { container } from "tsyringe";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
-import { ATMService } from "../../atm.service";
 import { ATMValidation } from "./atm.validation";
 
-export interface IATMDepositRequest {
-  value: number;
-}
-
-export interface IATMWithdrawRequest {
-  value: number;
-}
+import { ATMService } from "@modules/atm/atm.service";
+import { IATMDepositInput } from "@modules/atm/dtos/atm.deposit.dtos";
+import { IATMWithdrawInput } from "@modules/atm/dtos/atm.withdraw.dtos";
 
 export class ATMController {
   async deposit(req: Request, res: Response): Promise<void> {
     const { value } = req.body;
 
-    const request: IATMDepositRequest = { value };
+    const request: IATMDepositInput = { value };
     ATMValidation.validateDeposit(request);
 
     const atmService = container.resolve(ATMService);
@@ -29,7 +24,7 @@ export class ATMController {
   async withdraw(req: Request, res: Response): Promise<void> {
     const { value } = req.body;
 
-    const request: IATMWithdrawRequest = { value };
+    const request: IATMWithdrawInput = { value };
     ATMValidation.validateWithdraw(request);
 
     const atmService = container.resolve(ATMService);

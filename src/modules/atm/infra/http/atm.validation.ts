@@ -1,18 +1,17 @@
 import Joi from "joi";
-
 import { StatusCodes } from "http-status-codes";
 
-import { IATMDepositRequest, IATMWithdrawRequest } from "./atm.controller";
-
-import { ValidationError } from "../../../../shared/infra/http/erros/validationError";
+import { IATMDepositInput } from "@modules/atm/dtos/atm.deposit.dtos";
+import { IATMWithdrawInput } from "@modules/atm/dtos/atm.withdraw.dtos";
+import { ValidationError } from "@shared/infra/http/erros/validationError";
 
 export class ATMValidation {
-  static validateDeposit(request: IATMDepositRequest): void {
+  static validateDeposit(input: IATMDepositInput): void {
     const depositSchema = Joi.object({
       value: Joi.number().positive().required(),
     });
 
-    const response = depositSchema.validate(request);
+    const response = depositSchema.validate(input);
 
     if (response.error) {
       throw new ValidationError(
@@ -22,12 +21,12 @@ export class ATMValidation {
     }
   }
 
-  static validateWithdraw(request: IATMWithdrawRequest): void {
+  static validateWithdraw(input: IATMWithdrawInput): void {
     const withdrawSchema = Joi.object({
       value: Joi.number().positive().required(),
     });
 
-    const response = withdrawSchema.validate(request);
+    const response = withdrawSchema.validate(input);
 
     if (response.error) {
       throw new ValidationError(

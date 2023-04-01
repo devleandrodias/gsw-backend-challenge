@@ -1,13 +1,15 @@
 import { inject, injectable } from "tsyringe";
+import { StatusCodes } from "http-status-codes";
+import { AppError } from "@shared/infra/http/erros/appError";
 
-import { IATMWithdrawRequest } from "./infra/http/atm.controller";
+import { IATMRepository } from "./repositories/IATMRepository";
+import { IATMExtractOutput } from "./dtos/atm.extract.dtos";
+import { IATMDepositInput, IATMDepositOutput } from "./dtos/atm.deposit.dtos";
 
 import {
-  IATMRepository,
-  IDepositOutput,
-  IExtractOutput,
-  IWithdrawOutput,
-} from "./repositories/IATMRepository";
+  IATMWithdrawInput,
+  IATMWithdrawOutput,
+} from "./dtos/atm.withdraw.dtos";
 
 @injectable()
 export class ATMService {
@@ -16,23 +18,24 @@ export class ATMService {
     private readonly atmRepository: IATMRepository
   ) {}
 
-  async deposit({ value }: IATMWithdrawRequest): Promise<IDepositOutput> {
+  async deposit({ value }: IATMDepositInput): Promise<IATMDepositOutput> {
     return this.atmRepository.deposit(value);
   }
 
-  async withdraw({ value }: IATMWithdrawRequest): Promise<IWithdrawOutput> {
+  async withdraw({ value }: IATMWithdrawInput): Promise<IATMWithdrawOutput> {
     const currentBalance = (await this.atmRepository.extract()).balance;
 
     if (currentBalance < value) {
-      throw new Error(
-        "Nao é possível sacar um valor maior do que o diponivel em conta"
+      throw new AppError(
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        "Não é possível sacar um valor maior do que o disponível em conta."
       );
     }
 
     return this.atmRepository.withdraw(value);
   }
 
-  async extract(): Promise<IExtractOutput> {
+  async extract(): Promise<IATMExtractOutput> {
     return this.atmRepository.extract();
   }
 }

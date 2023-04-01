@@ -1,12 +1,11 @@
 import { StatusCodes } from "http-status-codes";
-import { AppError } from "../../../../shared/infra/http/erros/appError";
 
-import {
-  IATMRepository,
-  IDepositOutput,
-  IExtractOutput,
-  IWithdrawOutput,
-} from "../../repositories/IATMRepository";
+import { AppError } from "@shared/infra/http/erros/appError";
+
+import { IATMExtractOutput } from "@modules/atm/dtos/atm.extract.dtos";
+import { IATMDepositOutput } from "@modules/atm/dtos/atm.deposit.dtos";
+import { IATMWithdrawOutput } from "@modules/atm/dtos/atm.withdraw.dtos";
+import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 
 export class ATMInMemoryRepository implements IATMRepository {
   private balance: number;
@@ -16,13 +15,13 @@ export class ATMInMemoryRepository implements IATMRepository {
     this.balance = 10000;
   }
 
-  async deposit(value: number): Promise<IDepositOutput> {
+  async deposit(value: number): Promise<IATMDepositOutput> {
     this.balance += value;
 
     return { balance: this.balance };
   }
 
-  async withdraw(value: number): Promise<IWithdrawOutput> {
+  async withdraw(value: number): Promise<IATMWithdrawOutput> {
     const sortedNotes = this.availableBanknotes.sort((a, b) => b - a);
 
     const result = [];
@@ -50,7 +49,7 @@ export class ATMInMemoryRepository implements IATMRepository {
     return { result };
   }
 
-  async extract(): Promise<IExtractOutput> {
+  async extract(): Promise<IATMExtractOutput> {
     return { balance: this.balance };
   }
 }

@@ -1,20 +1,9 @@
-export interface IExtractOutput {
-  balance: number;
-}
-
-export interface IDepositOutput {
-  balance: number;
-}
-
-export interface IWithdrawOutput {
-  result: {
-    banknoteValue: number;
-    banknoteQuantity: number;
-  }[];
-}
+import { IATMDepositOutput } from "../dtos/atm.deposit.dtos";
+import { IATMExtractOutput } from "../dtos/atm.extract.dtos";
+import { IATMWithdrawOutput } from "../dtos/atm.withdraw.dtos";
 
 export interface IATMRepository {
-  extract(): Promise<IExtractOutput>;
-  deposit(value: number): Promise<IDepositOutput>;
-  withdraw(value: number): Promise<IWithdrawOutput>;
+  extract(): Promise<IATMExtractOutput>;
+  deposit(value: number): Promise<IATMDepositOutput>;
+  withdraw(value: number): Promise<IATMWithdrawOutput>;
 }
