@@ -1,10 +1,6 @@
-export interface IATMRepository {
-  deposit(value: number): Promise<void>;
-  withdraw(value: number): Promise<void>;
-  extract(): Promise<{ balance: number }>;
-}
+import { IATMRepository } from "../../repositories/IATMRepository";
 
-export class ATMRepository implements IATMRepository {
+export class ATMInMemoryRepository implements IATMRepository {
   private balance: number;
 
   constructor() {

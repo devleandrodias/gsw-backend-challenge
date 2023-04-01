@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { IATMRepository } from "./atm.repository";
+import { IATMRepository } from "./repositories/IATMRepository";
 
 @injectable()
 export class ATMService {
