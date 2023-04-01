@@ -1,8 +1,10 @@
-import { ITransaction } from "@modules/transaction/entities/ITransaction";
+import { randomUUID } from "crypto";
 
+import { ETransactionType } from "@shared/enuns/ETransactionType";
+import { ITransaction } from "@modules/transaction/entities/ITransaction";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
 
-export class TransactionRepository implements ITransactionRepository {
+export class TransactionInMemoryRepository implements ITransactionRepository {
   private readonly transactions: ITransaction[] = [];
 
   async getBalance(): Promise<number> {
@@ -22,8 +24,16 @@ export class TransactionRepository implements ITransactionRepository {
     return this.transactions;
   }
 
-  async createTransaction(transaction: ITransaction): Promise<number> {
-    this.transactions.push(transaction);
+  async createTransaction(
+    type: ETransactionType,
+    amount: number
+  ): Promise<number> {
+    this.transactions.push({
+      id: randomUUID(),
+      amount,
+      type,
+    });
+
     return this.getBalance();
   }
 }

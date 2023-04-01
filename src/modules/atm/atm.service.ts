@@ -2,8 +2,8 @@ import { inject, injectable } from "tsyringe";
 import { StatusCodes } from "http-status-codes";
 import { AppError } from "@shared/infra/http/erros/appError";
 
-import { IATMRepository } from "./repositories/IATMRepository";
 import { IATMExtractOutput } from "./dtos/atm.extract.dtos";
+import { IATMRepository } from "./repositories/IATMRepository";
 import { IATMDepositInput, IATMDepositOutput } from "./dtos/atm.deposit.dtos";
 
 import {

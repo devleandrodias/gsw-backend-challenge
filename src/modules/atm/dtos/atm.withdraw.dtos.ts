@@ -2,9 +2,12 @@ export interface IATMWithdrawInput {
   value: number;
 }
 
+export interface IBankNote {
+  value: number;
+  quantity: number;
+}
+
 export interface IATMWithdrawOutput {
-  result: {
-    banknoteValue: number;
-    banknoteQuantity: number;
-  }[];
+  balance: number;
+  bankNotes: IBankNote[];
 }

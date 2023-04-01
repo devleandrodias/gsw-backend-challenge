@@ -4,7 +4,10 @@ import { compilerOptions } from "./tsconfig.json";
 export default {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ["<rootDir>/src/modules/**/*service.ts"],
+  collectCoverageFrom: [
+    "<rootDir>/src/modules/**/*service.ts",
+    "<rootDir>/src/modules/**/*repository.ts",
+  ],
   coverageDirectory: "coverage",
   coveragePathIgnorePatterns: ["/node_modules/"],
   coverageProvider: "v8",

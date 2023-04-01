@@ -2,9 +2,15 @@ import "reflect-metadata";
 
 import { ATMService } from "@modules/atm/atm.service";
 import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
+import { TransactionInMemoryRepository } from "@modules/transaction/infra/inMemory/transaction.repository";
 
 describe("[ATM Module]", () => {
-  const atmInMemoryRepository = new ATMInMemoryRepository();
+  const transactionInMemoryRepository = new TransactionInMemoryRepository();
+
+  const atmInMemoryRepository = new ATMInMemoryRepository(
+    transactionInMemoryRepository
+  );
+
   const atmService = new ATMService(atmInMemoryRepository);
 
   describe("withdraw", () => {
