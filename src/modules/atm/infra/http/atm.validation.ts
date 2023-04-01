@@ -8,7 +8,7 @@ import { ValidationError } from "@shared/infra/http/erros/validationError";
 export class ATMValidation {
   static validateDeposit(input: IATMDepositInput): void {
     const depositSchema = Joi.object({
-      value: Joi.number().positive().required(),
+      amount: Joi.number().positive().required(),
     });
 
     const response = depositSchema.validate(input);
@@ -23,7 +23,7 @@ export class ATMValidation {
 
   static validateWithdraw(input: IATMWithdrawInput): void {
     const withdrawSchema = Joi.object({
-      value: Joi.number().positive().required(),
+      amount: Joi.number().positive().required(),
     });
 
     const response = withdrawSchema.validate(input);

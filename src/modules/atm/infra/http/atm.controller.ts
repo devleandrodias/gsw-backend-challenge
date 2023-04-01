@@ -10,9 +10,9 @@ import { IATMWithdrawInput } from "@modules/atm/dtos/atm.withdraw.dtos";
 
 export class ATMController {
   async deposit(req: Request, res: Response): Promise<void> {
-    const { value } = req.body;
+    const { amount } = req.body;
 
-    const request: IATMDepositInput = { value };
+    const request: IATMDepositInput = { amount };
     ATMValidation.validateDeposit(request);
 
     const atmService = container.resolve(ATMService);
@@ -22,9 +22,9 @@ export class ATMController {
   }
 
   async withdraw(req: Request, res: Response): Promise<void> {
-    const { value } = req.body;
+    const { amount } = req.body;
 
-    const request: IATMWithdrawInput = { value };
+    const request: IATMWithdrawInput = { amount };
     ATMValidation.validateWithdraw(request);
 
     const atmService = container.resolve(ATMService);

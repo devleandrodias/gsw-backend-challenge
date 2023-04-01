@@ -37,18 +37,31 @@ export class ATMService {
   async withdraw({ amount }: IATMWithdrawInput): Promise<IATMWithdrawOutput> {
     const availableBankNotes = await this.atmRepository.getAvailableBankNotes();
 
-    const sortedNotes = availableBankNotes.sort((a, b) => b - a);
-
     const bankNotes: IBankNote[] = [];
 
     let remainingValue = amount;
 
-    for (const note of sortedNotes) {
-      const noteCount = Math.floor(remainingValue / note);
+    for (const note of availableBankNotes) {
+      if (note.quantityAvailable <= 0) {
+        continue;
+      }
 
-      if (noteCount > 0) {
-        bankNotes.push({ value: note, quantity: noteCount });
-        remainingValue -= note * noteCount;
+      const noteCount = Math.floor(remainingValue / note.value);
+      const actualNoteCount = Math.min(noteCount, note.quantityAvailable);
+
+      if (actualNoteCount > 0) {
+        bankNotes.push({
+          value: note.value,
+          quantityAvailable: actualNoteCount,
+        });
+
+        remainingValue -= note.value * actualNoteCount;
+
+        note.quantityAvailable -= actualNoteCount;
+      }
+
+      if (remainingValue === 0) {
+        break;
       }
     }
 

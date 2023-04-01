@@ -21,7 +21,7 @@
             "application/json": {
               "schema": {
                 "properties": {
-                  "value": {
+                  "amount": {
                     "type": "number",
                     "example": 1000
                   }
@@ -46,7 +46,7 @@
             "application/json": {
               "schema": {
                 "properties": {
-                  "value": {
+                  "amount": {
                     "type": "number",
                     "example": 1000
                   }

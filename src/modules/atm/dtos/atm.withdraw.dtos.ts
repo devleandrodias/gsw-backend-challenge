@@ -4,7 +4,7 @@ export interface IATMWithdrawInput {
 
 export interface IBankNote {
   value: number;
-  quantity: number;
+  quantityAvailable: number;
 }
 
 export interface IATMWithdrawOutput {
