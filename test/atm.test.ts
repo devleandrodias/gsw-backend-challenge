@@ -22,9 +22,36 @@ describe("[ATM Module]", () => {
     atmService = new ATMService(atmInMemoryRepository, transactionService);
   });
 
+  describe("#deposit", () => {
+    it("should make a successful deposit and return current balance", async () => {
+      const { balance } = await atmService.deposit({ amount: 100 });
+      expect(balance).toEqual(100);
+    });
+  });
+
   describe("withdraw", () => {
-    it("should be defined", () => {
-      expect(atmService).toBeDefined();
+    it.todo("should make a successful withdraw");
+  });
+
+  describe("#extract", () => {
+    it("should return zero balance and empty transactions", async () => {
+      const extract = await atmService.extract();
+
+      expect(extract.balance).toEqual(0);
+      expect(extract.transactions.length).toEqual(0);
+    });
+
+    it("return a statement with the current balance and all transactions carried out", async () => {
+      await atmService.deposit({ amount: 100 });
+      await atmService.deposit({ amount: 400 });
+      await atmService.withdraw({ amount: 200 });
+      await atmService.deposit({ amount: 50 });
+      await atmService.deposit({ amount: 150 });
+
+      const extract = await atmService.extract();
+
+      expect(extract.balance).toEqual(500);
+      expect(extract.transactions.length).toEqual(5);
     });
   });
 });
