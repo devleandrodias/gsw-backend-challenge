@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { ATMService } from "@modules/atm/atm.service";
 import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
 
-describe("ATM Module", () => {
+describe("[ATM Module]", () => {
   const atmInMemoryRepository = new ATMInMemoryRepository();
   const atmService = new ATMService(atmInMemoryRepository);
 
