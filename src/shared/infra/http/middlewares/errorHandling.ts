@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
 
 import { AppError } from "./../erros/appError";
+import { ValidationError } from "../erros/validationError";
 import { IntegrationError } from "./../erros/integrationError";
 
 export function errorHandling(
@@ -15,6 +16,15 @@ export function errorHandling(
       statusCode: err.statusCode,
       statusMessage: getReasonPhrase(err.statusCode),
       errorType: "Application Error",
+      errorMessage: err.message,
+    });
+  }
+
+  if (err instanceof ValidationError) {
+    return res.status(err.statusCode).json({
+      statusCode: err.statusCode,
+      statusMessage: getReasonPhrase(err.statusCode),
+      errorType: "Validation Error",
       errorMessage: err.message,
     });
   }

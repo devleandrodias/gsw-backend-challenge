@@ -1,5 +1,7 @@
 import { app } from "./app";
 
-app.listen(4000, () => {
-  console.info(`Server started at ${4000}`);
+import { envs } from "../../../config/env.config";
+
+app.listen(envs.appPort, () => {
+  console.info(`Server started at ${envs.appPort}`);
 });

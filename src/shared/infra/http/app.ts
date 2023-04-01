@@ -1,5 +1,7 @@
 import "../../container";
 
+import "express-async-errors";
+
 import cors from "cors";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
