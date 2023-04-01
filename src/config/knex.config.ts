@@ -1,4 +1,4 @@
-import { envs } from "@config/env.config";
+import { envs } from "./env.config";
 
 export const knexConfigs = {
   client: "pg",
@@ -9,12 +9,8 @@ export const knexConfigs = {
     password: envs.databasePassword,
     database: envs.databaseDatabase,
   },
-  migrations: {
-    directory: "../database/migrations",
-  },
-  seeds: {
-    directory: "../database/seeds",
-  },
+  seeds: { directory: "./src/database/seeds" },
+  migrations: { directory: "./src/database/migrations" },
 };
 
 export const knexInMemoryConfigs = {
