@@ -50,17 +50,7 @@ describe("[Transaction Module]", () => {
   });
 
   describe("#createTransaction", () => {
-    it("should create a new transaction correctly", async () => {
-      await transactionService.createTransaction(ETransactionType.DEPOSIT, 100);
-
-      const balance = await transactionService.getBalance();
-      const transctions = await transactionService.getTransactions();
-
-      expect(balance).toEqual(100);
-      expect(transctions.length).toEqual(1);
-    });
-
-    it("it should not be possible to create a withdrawal transaction with less balance than available", () => {
+    it("should not be possible to create a withdrawal transaction with less balance than available", () => {
       const response = transactionService.createTransaction(
         ETransactionType.WITHDRAWAL,
         100
@@ -70,6 +60,40 @@ describe("[Transaction Module]", () => {
       expect(response).rejects.toThrowError(
         "It was not possible to make a withdrawal because the requested amount is less than the available amount"
       );
+    });
+
+    it("should not be possible to make transactions with negative amounts", () => {
+      const response = transactionService.createTransaction(
+        ETransactionType.DEPOSIT,
+        -100
+      );
+
+      expect(response).rejects.toBeInstanceOf(AppError);
+      expect(response).rejects.toThrowError(
+        "It is not possible to create transactions with negative or zero values"
+      );
+    });
+
+    it("should not be possible to make transactions with zero values", () => {
+      const response = transactionService.createTransaction(
+        ETransactionType.DEPOSIT,
+        0
+      );
+
+      expect(response).rejects.toBeInstanceOf(AppError);
+      expect(response).rejects.toThrowError(
+        "It is not possible to create transactions with negative or zero values"
+      );
+    });
+
+    it("should create a new transaction correctly", async () => {
+      await transactionService.createTransaction(ETransactionType.DEPOSIT, 100);
+
+      const balance = await transactionService.getBalance();
+      const transctions = await transactionService.getTransactions();
+
+      expect(balance).toEqual(100);
+      expect(transctions.length).toEqual(1);
     });
   });
 });

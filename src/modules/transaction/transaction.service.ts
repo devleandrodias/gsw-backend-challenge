@@ -18,6 +18,13 @@ export class TransactionService {
     type: ETransactionType,
     amount: number
   ): Promise<number> {
+    if (amount <= 0) {
+      throw new AppError(
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        "It is not possible to create transactions with negative or zero values"
+      );
+    }
+
     const balance = await this.getBalance();
 
     if (type === ETransactionType.WITHDRAWAL) {
