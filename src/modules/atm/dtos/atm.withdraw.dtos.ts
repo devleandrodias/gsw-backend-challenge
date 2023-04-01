@@ -8,5 +8,8 @@ export interface IBankNote {
 }
 
 export interface IATMWithdrawOutput {
-  bankNotes: IBankNote[];
+  notes: {
+    note: number;
+    quantity: number;
+  }[];
 }

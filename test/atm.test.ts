@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import { ATMService } from "@modules/atm/atm.service";
+import { AppError } from "@shared/infra/http/erros/appError";
 import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 import { TransactionService } from "@modules/transaction/transaction.service";
 import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
@@ -13,6 +14,8 @@ describe("[ATM Module]", () => {
 
   let atmService: ATMService;
   let transactionService: TransactionService;
+
+  let getAvailableBankNotesSpy: jest.SpyInstance;
 
   beforeEach(() => {
     atmInMemoryRepository = new ATMInMemoryRepository();
@@ -30,7 +33,85 @@ describe("[ATM Module]", () => {
   });
 
   describe("withdraw", () => {
-    it.todo("should make a successful withdraw");
+    beforeEach(() => {
+      getAvailableBankNotesSpy = jest.spyOn(
+        ATMInMemoryRepository.prototype,
+        "getAvailableBankNotes"
+      );
+    });
+
+    it("It should not be possible to make a withdrawal if there are not enough bills in the cash register for the requested amount.", async () => {
+      getAvailableBankNotesSpy.mockResolvedValueOnce([
+        { value: 100, quantityAvailable: 1 },
+        { value: 50, quantityAvailable: 0 },
+        { value: 20, quantityAvailable: 0 },
+        { value: 10, quantityAvailable: 0 },
+      ]);
+
+      atmService.deposit({ amount: 1000 });
+      const response = atmService.withdraw({ amount: 200 });
+
+      expect(response).rejects.toBeInstanceOf(AppError);
+      expect(response).rejects.toThrowError(
+        "It is not possible to withdraw the desired amount with the available banknotes"
+      );
+    });
+
+    it("it should not be possible to make a withdrawal in an amount that the notes cannot be delivered", () => {
+      getAvailableBankNotesSpy.mockResolvedValueOnce([
+        { value: 100, quantityAvailable: 100 },
+        { value: 50, quantityAvailable: 100 },
+        { value: 20, quantityAvailable: 100 },
+        { value: 10, quantityAvailable: 100 },
+      ]);
+
+      atmService.deposit({ amount: 1000 });
+      const response = atmService.withdraw({ amount: 125 });
+
+      expect(response).rejects.toBeInstanceOf(AppError);
+      expect(response).rejects.toThrowError(
+        "It is not possible to withdraw the desired amount with the available banknotes"
+      );
+    });
+
+    it("should delivery the least amount of notes required according to availability #1", async () => {
+      getAvailableBankNotesSpy.mockResolvedValueOnce([
+        { value: 100, quantityAvailable: 1000 },
+        { value: 50, quantityAvailable: 1000 },
+        { value: 20, quantityAvailable: 1000 },
+        { value: 10, quantityAvailable: 1000 },
+      ]);
+
+      atmService.deposit({ amount: 1000 });
+
+      const { notes } = await atmService.withdraw({ amount: 170 });
+
+      expect(notes).toEqual([
+        { note: 100, quantity: 1 },
+        { note: 50, quantity: 1 },
+        { note: 20, quantity: 1 },
+      ]);
+    });
+
+    it("should delivery the least amount of notes required according to availability #2", async () => {
+      getAvailableBankNotesSpy.mockResolvedValueOnce([
+        { value: 100, quantityAvailable: 2 },
+        { value: 50, quantityAvailable: 1 },
+        { value: 20, quantityAvailable: 50 },
+        { value: 10, quantityAvailable: 10 },
+      ]);
+
+      atmService.deposit({ amount: 1000 });
+
+      const { notes } = await atmService.withdraw({ amount: 300 });
+
+      expect(notes).toEqual([
+        { note: 100, quantity: 2 },
+        { note: 50, quantity: 1 },
+        { note: 20, quantity: 2 },
+        { note: 10, quantity: 1 },
+      ]);
+    });
   });
 
   describe("#extract", () => {

@@ -10,7 +10,6 @@ import { ETransactionType } from "@shared/enuns/ETransactionType";
 import { TransactionService } from "@modules/transaction/transaction.service";
 
 import {
-  IBankNote,
   IATMWithdrawInput,
   IATMWithdrawOutput,
 } from "./dtos/atm.withdraw.dtos";
@@ -37,27 +36,27 @@ export class ATMService {
   async withdraw({ amount }: IATMWithdrawInput): Promise<IATMWithdrawOutput> {
     const availableBankNotes = await this.atmRepository.getAvailableBankNotes();
 
-    const bankNotes: IBankNote[] = [];
+    const notes: { note: number; quantity: number }[] = [];
 
     let remainingValue = amount;
 
-    for (const note of availableBankNotes) {
-      if (note.quantityAvailable <= 0) {
+    for (const bankNote of availableBankNotes) {
+      if (bankNote.quantityAvailable <= 0) {
         continue;
       }
 
-      const noteCount = Math.floor(remainingValue / note.value);
-      const actualNoteCount = Math.min(noteCount, note.quantityAvailable);
+      const noteCount = Math.floor(remainingValue / bankNote.value);
+      const actualNoteCount = Math.min(noteCount, bankNote.quantityAvailable);
 
       if (actualNoteCount > 0) {
-        bankNotes.push({
-          value: note.value,
-          quantityAvailable: actualNoteCount,
+        notes.push({
+          note: bankNote.value,
+          quantity: actualNoteCount,
         });
 
-        remainingValue -= note.value * actualNoteCount;
+        remainingValue -= bankNote.value * actualNoteCount;
 
-        note.quantityAvailable -= actualNoteCount;
+        bankNote.quantityAvailable -= actualNoteCount;
       }
 
       if (remainingValue === 0) {
@@ -68,7 +67,7 @@ export class ATMService {
     if (remainingValue > 0) {
       throw new AppError(
         StatusCodes.UNPROCESSABLE_ENTITY,
-        "Não é possível retirar a quantia desejada com as notas disponíveis."
+        "It is not possible to withdraw the desired amount with the available banknotes"
       );
     }
 
@@ -77,7 +76,7 @@ export class ATMService {
       amount
     );
 
-    return { bankNotes };
+    return { notes };
   }
 
   async extract(): Promise<IATMExtractOutput> {
