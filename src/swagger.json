@@ -9,5 +9,66 @@
       "url": "https://leandrodbdias.dev",
       "email": "leandrodbdias@gmail.com"
     }
+  },
+  "paths": {
+    "/atm/deposit": {
+      "post": {
+        "tags": ["ATM"],
+        "summary": "Deposit",
+        "description": "Method responsible for making deposits",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/atm/withdraw": {
+      "post": {
+        "tags": ["ATM"],
+        "summary": "Withdraw",
+        "description": "Method responsible for making withdraws",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "example": 1000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/atm/extract": {
+      "get": {
+        "tags": ["ATM"],
+        "summary": "Extract",
+        "description": "Method responsible for consult the balance available",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
   }
 }
