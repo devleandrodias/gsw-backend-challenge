@@ -2,14 +2,14 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
-import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
+import { ATMNoteRepository } from "@modules/atm/infra/knex/atm.repository";
+import { IATMNoteRepository } from "@modules/atm/repositories/IATMNoteRepository";
 import { TransactionRepository } from "@modules/transaction/infra/knex/transaction.repository";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
 
-container.registerSingleton<IATMRepository>(
-  "ATMRepository",
-  ATMInMemoryRepository
+container.registerSingleton<IATMNoteRepository>(
+  "ATMNoteRepository",
+  ATMNoteRepository
 );
 
 container.registerSingleton<ITransactionRepository>(

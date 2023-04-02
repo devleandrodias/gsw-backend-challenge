@@ -1,6 +1,6 @@
 import { envs } from "./env.config";
 
-export const knexConfigs = {
+export const knexconfig = {
   client: "pg",
   connection: {
     port: envs.databasePort,
@@ -9,12 +9,11 @@ export const knexConfigs = {
     password: envs.databasePassword,
     database: envs.databaseDatabase,
   },
-  seeds: { directory: "./src/database/seeds" },
-  migrations: { directory: "./src/database/migrations" },
-};
-
-export const knexInMemoryConfigs = {
-  client: "sqlite3",
-  useNullAsDefault: true,
-  connection: { filename: "./database/db.sqlite" },
+  seeds: {
+    directory: "./src/shared/infra/knex/seeds",
+  },
+  migrations: {
+    tableName: "knex_migrations",
+    directory: "./src/shared/infra/knex/migrations",
+  },
 };

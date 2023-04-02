@@ -1,16 +1,16 @@
 import { injectable } from "tsyringe";
 
-import { IBankNote } from "@modules/atm/dtos/atm.withdraw.dtos";
-import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
+import { IATMNote } from "@modules/atm/entities/IATMNote";
+import { IATMNoteRepository } from "@modules/atm/repositories/IATMNoteRepository";
 
 @injectable()
-export class ATMInMemoryRepository implements IATMRepository {
-  async getAvailableBankNotes(): Promise<IBankNote[]> {
+export class ATMNoteInMemoryRepository implements IATMNoteRepository {
+  async getAvailableATMNotes(): Promise<IATMNote[]> {
     return [
-      { value: 100, quantityAvailable: 1000 },
-      { value: 50, quantityAvailable: 1000 },
-      { value: 20, quantityAvailable: 1000 },
-      { value: 10, quantityAvailable: 1000 },
+      { id: Math.random(), note: 100, quantity: 100 },
+      { id: Math.random(), note: 50, quantity: 100 },
+      { id: Math.random(), note: 20, quantity: 100 },
+      { id: Math.random(), note: 10, quantity: 100 },
     ];
   }
 }

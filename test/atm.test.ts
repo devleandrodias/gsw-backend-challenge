@@ -2,27 +2,27 @@ import "reflect-metadata";
 
 import { ATMService } from "@modules/atm/atm.service";
 import { AppError } from "@shared/infra/http/erros/appError";
-import { IATMRepository } from "@modules/atm/repositories/IATMRepository";
 import { TransactionService } from "@modules/transaction/transaction.service";
-import { ATMInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
+import { IATMNoteRepository } from "@modules/atm/repositories/IATMNoteRepository";
+import { ATMNoteInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
 import { TransactionInMemoryRepository } from "@modules/transaction/infra/inMemory/transaction.repository";
 
 describe("[ATM Module]", () => {
-  let atmInMemoryRepository: IATMRepository;
+  let atmNoteInMemoryRepository: IATMNoteRepository;
   let transactionRepository: ITransactionRepository;
 
   let atmService: ATMService;
   let transactionService: TransactionService;
 
-  let getAvailableBankNotesSpy: jest.SpyInstance;
+  let getAvailableATMNotesSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    atmInMemoryRepository = new ATMInMemoryRepository();
+    atmNoteInMemoryRepository = new ATMNoteInMemoryRepository();
     transactionRepository = new TransactionInMemoryRepository();
 
     transactionService = new TransactionService(transactionRepository);
-    atmService = new ATMService(atmInMemoryRepository, transactionService);
+    atmService = new ATMService(atmNoteInMemoryRepository, transactionService);
   });
 
   describe("#deposit", () => {
@@ -34,18 +34,18 @@ describe("[ATM Module]", () => {
 
   describe("withdraw", () => {
     beforeEach(() => {
-      getAvailableBankNotesSpy = jest.spyOn(
-        ATMInMemoryRepository.prototype,
-        "getAvailableBankNotes"
+      getAvailableATMNotesSpy = jest.spyOn(
+        ATMNoteInMemoryRepository.prototype,
+        "getAvailableATMNotes"
       );
     });
 
     it("It should not be possible to make a withdrawal if there are not enough bills in the cash register for the requested amount.", async () => {
-      getAvailableBankNotesSpy.mockResolvedValueOnce([
-        { value: 100, quantityAvailable: 1 },
-        { value: 50, quantityAvailable: 0 },
-        { value: 20, quantityAvailable: 0 },
-        { value: 10, quantityAvailable: 0 },
+      getAvailableATMNotesSpy.mockResolvedValueOnce([
+        { note: 100, quantity: 1 },
+        { note: 50, quantity: 0 },
+        { note: 20, quantity: 0 },
+        { note: 10, quantity: 0 },
       ]);
 
       atmService.deposit({ amount: 1000 });
@@ -58,11 +58,11 @@ describe("[ATM Module]", () => {
     });
 
     it("it should not be possible to make a withdrawal in an amount that the notes cannot be delivered", () => {
-      getAvailableBankNotesSpy.mockResolvedValueOnce([
-        { value: 100, quantityAvailable: 100 },
-        { value: 50, quantityAvailable: 100 },
-        { value: 20, quantityAvailable: 100 },
-        { value: 10, quantityAvailable: 100 },
+      getAvailableATMNotesSpy.mockResolvedValueOnce([
+        { note: 100, quantity: 100 },
+        { note: 50, quantity: 100 },
+        { note: 20, quantity: 100 },
+        { note: 10, quantity: 100 },
       ]);
 
       atmService.deposit({ amount: 1000 });
@@ -75,11 +75,11 @@ describe("[ATM Module]", () => {
     });
 
     it("should delivery the least amount of notes required according to availability #1", async () => {
-      getAvailableBankNotesSpy.mockResolvedValueOnce([
-        { value: 100, quantityAvailable: 1000 },
-        { value: 50, quantityAvailable: 1000 },
-        { value: 20, quantityAvailable: 1000 },
-        { value: 10, quantityAvailable: 1000 },
+      getAvailableATMNotesSpy.mockResolvedValueOnce([
+        { note: 100, quantity: 1000 },
+        { note: 50, quantity: 1000 },
+        { note: 20, quantity: 1000 },
+        { note: 10, quantity: 1000 },
       ]);
 
       atmService.deposit({ amount: 1000 });
@@ -94,11 +94,11 @@ describe("[ATM Module]", () => {
     });
 
     it("should delivery the least amount of notes required according to availability #2", async () => {
-      getAvailableBankNotesSpy.mockResolvedValueOnce([
-        { value: 100, quantityAvailable: 2 },
-        { value: 50, quantityAvailable: 1 },
-        { value: 20, quantityAvailable: 50 },
-        { value: 10, quantityAvailable: 10 },
+      getAvailableATMNotesSpy.mockResolvedValueOnce([
+        { note: 100, quantity: 2 },
+        { note: 50, quantity: 1 },
+        { note: 20, quantity: 50 },
+        { note: 10, quantity: 10 },
       ]);
 
       atmService.deposit({ amount: 1000 });

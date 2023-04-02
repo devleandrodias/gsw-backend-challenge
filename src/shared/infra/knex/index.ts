@@ -1,5 +1,5 @@
 import knex from "knex";
 
-import { knexInMemoryConfigs } from "@config/knex.config";
+import { knexconfig } from "@config/knex.config";
 
-export const knexDataSource = knex(knexInMemoryConfigs);
+export const knexDataSource = knex(knexconfig);
