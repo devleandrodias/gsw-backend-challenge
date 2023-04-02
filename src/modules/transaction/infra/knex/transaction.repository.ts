@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 import { injectable } from "tsyringe";
 
-import { knexDataSource } from "@database/index";
+import { knexDataSource } from "@shared/infra/knex/index";
 import { ETransactionType } from "@shared/enuns/ETransactionType";
 import { ITransaction } from "@modules/transaction/entities/ITransaction";
 import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";

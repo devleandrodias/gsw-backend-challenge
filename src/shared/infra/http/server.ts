@@ -1,5 +1,5 @@
 import { envs } from "@config/env.config";
-import { knexDataSource } from "@database/index";
+import { knexDataSource } from "@shared/infra/knex/index";
 
 import { app } from "./app";
 

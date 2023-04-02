@@ -16,5 +16,5 @@ export const knexConfigs = {
 export const knexInMemoryConfigs = {
   client: "sqlite3",
   useNullAsDefault: true,
-  connection: { filename: "./src/database/gswBank.sqlite" },
+  connection: { filename: "./database/db.sqlite" },
 };

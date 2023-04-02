@@ -8,14 +8,14 @@ module.exports = {
     client: "sqlite3",
     useNullAsDefault: true,
     seeds: {
-      directory: "./src/database/seeds",
+      directory: "./src/shared/infra/knex/seeds",
     },
     migrations: {
       tableName: "knex_migrations",
-      directory: "./src/database/migrations",
+      directory: "./src/shared/infra/knex/migrations",
     },
     connection: {
-      filename: "./src/database/gswBank.sqlite",
+      filename: "./database/db.sqlite",
     },
   },
 
