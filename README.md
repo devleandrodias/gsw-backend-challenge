@@ -40,7 +40,7 @@ Para instalar o projeto, clone este repositório e execute o seguinte comando:
 
 > Certifique de ter instalado Docker e Nvm instalado
 
-`cp .env.local .env && docker-compose up -d && nvm install && nvm use && npm install && npm start`
+`cp .env.local .env && docker-compose up -d && nvm install && nvm use && npm install && npm run build && npm start`
 
 Isso iniciará o aplicativo e abrirá uma nova janela do navegador. Você pode acessar o aplicativo em http://localhost:4000/docs
 
