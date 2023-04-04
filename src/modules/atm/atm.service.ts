@@ -78,14 +78,14 @@ export class ATMService {
       );
     }
 
-    for (const note of notes) {
-      await this.atmNoteRepository.debitNoteQuantity(note.note, note.quantity);
-    }
-
     await this.transactionService.createTransaction(
       ETransactionType.WITHDRAWAL,
       amount
     );
+
+    for (const note of notes) {
+      await this.atmNoteRepository.debitNoteQuantity(note.note, note.quantity);
+    }
 
     return { notes };
   }

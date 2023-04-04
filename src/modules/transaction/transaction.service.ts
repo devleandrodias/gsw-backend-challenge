@@ -31,7 +31,7 @@ export class TransactionService {
       if (amount > balance) {
         throw new AppError(
           StatusCodes.UNPROCESSABLE_ENTITY,
-          "It Não foi possível efetuar o saque porque o valor solicitado é menor do que o valor disponível."
+          "Não foi possível efetuar o saque porque o valor solicitado é maior do que o valor disponível"
         );
       }
     }
