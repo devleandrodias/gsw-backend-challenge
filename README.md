@@ -1,9 +1,9 @@
 # GSW Backend Challenge
 
-![Badge Conluída](http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=BLUE&style=for-the-badge)
+![Badge Conluída](http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge)
 
 <p align="center">
-  <img src="src/assets/gsw-logo.png" alt="texto alternativo"  />
+  <img src="assets/gsw-logo.png" alt="texto alternativo"  />
 </p>
 
 ## :dart: Objetivo
@@ -40,13 +40,7 @@ Para instalar o projeto, clone este repositório e execute o seguinte comando:
 
 > Certifique de ter instalado Docker e Nvm instalado
 
-<code>
-docker-compose up -d
-nvm install
-nvm use
-npm install
-npm start
-</code>
+`docker-compose up -d && nvm install && nvm use && npm install && npm start`
 
 Isso iniciará o aplicativo e abrirá uma nova janela do navegador. Você pode acessar o aplicativo em http://localhost:4000/docs
 
