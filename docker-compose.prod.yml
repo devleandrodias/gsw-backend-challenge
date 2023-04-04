@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_DATABASE}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      gsw_network:
+        aliases:
+          - database
+
+  application:
+    build: .
+    ports:
+      - "4000:${APP_PORT}"
+    networks:
+      gsw_network:
+        aliases:
+          - application
+    depends_on:
+      - database
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - APP_PORT=${APP_PORT}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_DATABASE=${DATABASE_DATABASE}
+    command: >
+      sh -c "npm install"
+    command: >
+      sh -c "npx knex migrate:latest --env=production"
+    command: >
+      sh -c "npx knex seed:run --env=production"
+    command: >
+      sh -c "npm run start"
+
+volumes:
+  dbdata:
+
+networks:
+  gsw_network:

@@ -17,6 +17,10 @@
 - [Licença](#licença)
 - [Conclusão](#conclusão)
 
+## Como executar projeto?
+
+<code>docker-compose -f docker-compose.prod.yml up</code>
+
 ## Features
 
 - Saques

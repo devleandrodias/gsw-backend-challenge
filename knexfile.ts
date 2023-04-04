@@ -40,16 +40,18 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
+      port: process.env.DATABASE_PORT,
+      user: process.env.DATABASE_USER,
+      host: process.env.DATABASE_HOST,
+      database: process.env.DATABASE_DATABASE,
+      password: process.env.DATABASE_PASSWORD,
     },
-    pool: {
-      min: 2,
-      max: 10,
+    seeds: {
+      directory: "./src/shared/infra/knex/seeds",
     },
     migrations: {
       tableName: "knex_migrations",
+      directory: "./src/shared/infra/knex/migrations",
     },
   },
 };
