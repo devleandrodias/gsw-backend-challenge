@@ -61,16 +61,25 @@ export class ATMService {
         bankNote.quantity -= actualNoteCount;
       }
 
-      if (remainingValue === 0) {
+      if (remainingValue <= 0) {
         break;
       }
     }
 
-    if (remainingValue > 0) {
+    const totalNotes = notes.reduce(
+      (acc, note) => acc + note.note * note.quantity,
+      0
+    );
+
+    if (totalNotes < amount) {
       throw new AppError(
         StatusCodes.UNPROCESSABLE_ENTITY,
-        "It is not possible to withdraw the desired amount with the available banknotes"
+        "O caixa eletrônico não possui notas suficientes para entregar o valor solicitado"
       );
+    }
+
+    for (const note of notes) {
+      await this.atmNoteRepository.debitNoteQuantity(note.note, note.quantity);
     }
 
     await this.transactionService.createTransaction(

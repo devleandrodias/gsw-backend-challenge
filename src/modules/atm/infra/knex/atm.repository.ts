@@ -11,4 +11,10 @@ export class ATMNoteRepository implements IATMNoteRepository {
   async getAvailableATMNotes(): Promise<IATMNote[]> {
     return this.database(this.tableName).select();
   }
+
+  async debitNoteQuantity(note: number, quantity: number): Promise<void> {
+    await this.database(this.tableName)
+      .where("note", note)
+      .decrement("quantity", quantity);
+  }
 }

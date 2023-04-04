@@ -58,7 +58,7 @@ describe("[Transaction Module]", () => {
 
       expect(response).rejects.toBeInstanceOf(AppError);
       expect(response).rejects.toThrowError(
-        "It was not possible to make a withdrawal because the requested amount is less than the available amount"
+        "Não foi possível efetuar o saque porque o valor solicitado é menor do que o valor disponível."
       );
     });
 
@@ -70,7 +70,7 @@ describe("[Transaction Module]", () => {
 
       expect(response).rejects.toBeInstanceOf(AppError);
       expect(response).rejects.toThrowError(
-        "It is not possible to create transactions with negative or zero values"
+        "Não é possível criar transações com valores negativos ou zero"
       );
     });
 
@@ -82,7 +82,7 @@ describe("[Transaction Module]", () => {
 
       expect(response).rejects.toBeInstanceOf(AppError);
       expect(response).rejects.toThrowError(
-        "It is not possible to create transactions with negative or zero values"
+        "Não é possível criar transações com valores negativos ou zero"
       );
     });
 

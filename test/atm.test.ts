@@ -53,7 +53,7 @@ describe("[ATM Module]", () => {
 
       expect(response).rejects.toBeInstanceOf(AppError);
       expect(response).rejects.toThrowError(
-        "It is not possible to withdraw the desired amount with the available banknotes"
+        "O caixa eletrônico não possui notas suficientes para entregar o valor solicitado"
       );
     });
 
@@ -70,7 +70,7 @@ describe("[ATM Module]", () => {
 
       expect(response).rejects.toBeInstanceOf(AppError);
       expect(response).rejects.toThrowError(
-        "It is not possible to withdraw the desired amount with the available banknotes"
+        "O caixa eletrônico não possui notas suficientes para entregar o valor solicitado"
       );
     });
 

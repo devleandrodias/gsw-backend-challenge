@@ -21,7 +21,7 @@ export class TransactionService {
     if (amount <= 0) {
       throw new AppError(
         StatusCodes.UNPROCESSABLE_ENTITY,
-        "It is not possible to create transactions with negative or zero values"
+        "Não é possível criar transações com valores negativos ou zero"
       );
     }
 
@@ -31,7 +31,7 @@ export class TransactionService {
       if (amount > balance) {
         throw new AppError(
           StatusCodes.UNPROCESSABLE_ENTITY,
-          "It was not possible to make a withdrawal because the requested amount is less than the available amount"
+          "It Não foi possível efetuar o saque porque o valor solicitado é menor do que o valor disponível."
         );
       }
     }
