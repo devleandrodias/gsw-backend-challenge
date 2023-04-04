@@ -1,4 +1,4 @@
-import { IATMNote } from "@modules/atm/entities/IATMNote";
+import { IATMNote } from "../entities/IATMNote";
 
 export interface IATMNoteRepository {
   getAvailableATMNotes(): Promise<IATMNote[]>;

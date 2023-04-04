@@ -1,10 +1,10 @@
 import { Knex } from "knex";
 import { injectable } from "tsyringe";
 
-import { knexDataSource } from "@shared/infra/knex/index";
-import { ETransactionType } from "@shared/enuns/ETransactionType";
-import { ITransaction } from "@modules/transaction/entities/ITransaction";
-import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
+import { ITransaction } from "../../entities/ITransaction";
+import { knexDataSource } from "../../../../shared/infra/knex";
+import { ETransactionType } from "../../../../shared/enuns/ETransactionType";
+import { ITransactionRepository } from "../../repositories/ITransactionRepository";
 
 @injectable()
 export class TransactionRepository implements ITransactionRepository {

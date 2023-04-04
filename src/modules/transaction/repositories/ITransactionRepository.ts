@@ -1,6 +1,5 @@
-import { ETransactionType } from "@shared/enuns/ETransactionType";
-
 import { ITransaction } from "../entities/ITransaction";
+import { ETransactionType } from "../../../shared/enuns/ETransactionType";
 
 export interface ITransactionRepository {
   getTransactions(): Promise<ITransaction[]>;

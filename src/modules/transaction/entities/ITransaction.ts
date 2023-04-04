@@ -1,4 +1,4 @@
-import { ETransactionType } from "@shared/enuns/ETransactionType";
+import { ETransactionType } from "../../../shared/enuns/ETransactionType";
 
 export interface ITransaction {
   id: number;

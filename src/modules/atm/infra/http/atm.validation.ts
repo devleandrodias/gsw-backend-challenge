@@ -1,9 +1,9 @@
 import Joi from "joi";
 import { StatusCodes } from "http-status-codes";
 
-import { IATMDepositInput } from "@modules/atm/dtos/atm.deposit.dtos";
-import { IATMWithdrawInput } from "@modules/atm/dtos/atm.withdraw.dtos";
-import { ValidationError } from "@shared/infra/http/erros/validationError";
+import { IATMDepositInput } from "../../dtos/atm.deposit.dtos";
+import { IATMWithdrawInput } from "../../dtos/atm.withdraw.dtos";
+import { ValidationError } from "../../../../shared/infra/http/erros/validationError";
 
 export class ATMValidation {
   static validateDeposit(input: IATMDepositInput): void {

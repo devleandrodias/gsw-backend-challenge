@@ -1,7 +1,6 @@
-import { envs } from "@config/env.config";
-import { knexDataSource } from "@shared/infra/knex/index";
-
 import { app } from "./app";
+import { knexDataSource } from "../knex";
+import { envs } from "../../../config/env.config";
 
 knexDataSource
   .raw("SELECT 1+1 AS result")

@@ -1,11 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import { inject, injectable } from "tsyringe";
 
-import { AppError } from "@shared/infra/http/erros/appError";
-import { ETransactionType } from "@shared/enuns/ETransactionType";
-import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
-
 import { ITransaction } from "./entities/ITransaction";
+import { AppError } from "../../shared/infra/http/erros/appError";
+import { ETransactionType } from "../../shared/enuns/ETransactionType";
+import { ITransactionRepository } from "./repositories/ITransactionRepository";
 
 @injectable()
 export class TransactionService {

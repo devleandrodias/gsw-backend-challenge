@@ -1,8 +1,8 @@
 import { injectable } from "tsyringe";
 
-import { ETransactionType } from "@shared/enuns/ETransactionType";
-import { ITransaction } from "@modules/transaction/entities/ITransaction";
-import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
+import { ITransaction } from "../../entities/ITransaction";
+import { ETransactionType } from "../../../../shared/enuns/ETransactionType";
+import { ITransactionRepository } from "../../repositories/ITransactionRepository";
 
 @injectable()
 export class TransactionInMemoryRepository implements ITransactionRepository {

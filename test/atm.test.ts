@@ -1,12 +1,12 @@
 import "reflect-metadata";
 
-import { ATMService } from "@modules/atm/atm.service";
-import { AppError } from "@shared/infra/http/erros/appError";
-import { TransactionService } from "@modules/transaction/transaction.service";
-import { IATMNoteRepository } from "@modules/atm/repositories/IATMNoteRepository";
-import { ATMNoteInMemoryRepository } from "@modules/atm/infra/inMemory/atm.repository";
-import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
-import { TransactionInMemoryRepository } from "@modules/transaction/infra/inMemory/transaction.repository";
+import { ATMService } from "../src/modules/atm/atm.service";
+import { AppError } from "../src/shared/infra/http/erros/appError";
+import { TransactionService } from "../src/modules/transaction/transaction.service";
+import { IATMNoteRepository } from "../src/modules/atm/repositories/IATMNoteRepository";
+import { ATMNoteInMemoryRepository } from "../src/modules/atm/infra/inMemory/atm.repository";
+import { ITransactionRepository } from "../src/modules/transaction/repositories/ITransactionRepository";
+import { TransactionInMemoryRepository } from "../src/modules/transaction/infra/inMemory/transaction.repository";
 
 describe("[ATM Module]", () => {
   let atmNoteInMemoryRepository: IATMNoteRepository;

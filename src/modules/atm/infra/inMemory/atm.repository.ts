@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
 
-import { IATMNote } from "@modules/atm/entities/IATMNote";
-import { IATMNoteRepository } from "@modules/atm/repositories/IATMNoteRepository";
+import { IATMNote } from "../../entities/IATMNote";
+import { IATMNoteRepository } from "../../repositories/IATMNoteRepository";
 
 @injectable()
 export class ATMNoteInMemoryRepository implements IATMNoteRepository {

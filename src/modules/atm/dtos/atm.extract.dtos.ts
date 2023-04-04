@@ -1,4 +1,4 @@
-import { ITransaction } from "@modules/transaction/entities/ITransaction";
+import { ITransaction } from "../../transaction/entities/ITransaction";
 
 export interface IATMExtractOutput {
   balance: number;

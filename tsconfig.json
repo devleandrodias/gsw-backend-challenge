@@ -4,18 +4,11 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
-    "baseUrl": "./src",
     "outDir": "./dist",
-    "paths": {
-      "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-      "@modules/*": ["modules/*"],
-      "@database/*": ["database/*"]
-    },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
-  }
+  },
 }

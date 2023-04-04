@@ -1,10 +1,10 @@
 import "reflect-metadata";
 
-import { AppError } from "@shared/infra/http/erros/appError";
-import { ETransactionType } from "@shared/enuns/ETransactionType";
-import { TransactionService } from "@modules/transaction/transaction.service";
-import { ITransactionRepository } from "@modules/transaction/repositories/ITransactionRepository";
-import { TransactionInMemoryRepository } from "@modules/transaction/infra/inMemory/transaction.repository";
+import { AppError } from "../src/shared/infra/http/erros/appError";
+import { ETransactionType } from "../src/shared/enuns/ETransactionType";
+import { TransactionService } from "../src/modules/transaction/transaction.service";
+import { ITransactionRepository } from "../src/modules/transaction/repositories/ITransactionRepository";
+import { TransactionInMemoryRepository } from "../src/modules/transaction/infra/inMemory/transaction.repository";
 
 describe("[Transaction Module]", () => {
   let transactionService: TransactionService;
