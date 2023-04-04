@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ATM API",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "test": "npx jest",
     "test:e2e": "npx jest e2e",
     "test:coverage": "npx jest --coverage",
