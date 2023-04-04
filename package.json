@@ -4,16 +4,16 @@
   "description": "ATM API",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "test:e2e": "jest e2e",
-    "test:coverage": "jest --coverage",
-    "knex:seed:run": "knex seed:run",
-    "knex:seed:create": "knex seed:make",
-    "knex:migration:up": "knex migrate:up",
-    "knex:migration:down": "knex migrate:down",
-    "knex:migration:create": "knex migrate:make",
-    "start": "ts-node -r  tsconfig-paths/register ./src/shared/infra/http/server.ts",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/shared/infra/http/server.ts"
+    "test": "npx jest",
+    "test:e2e": "npx jest e2e",
+    "test:coverage": "npx jest --coverage",
+    "knex:seed:run": "npx knex seed:run",
+    "knex:seed:create": "npx knex seed:make",
+    "knex:migration:up": "npx knex migrate:up",
+    "knex:migration:down": "npx knex migrate:down",
+    "knex:migration:create": "npx knex migrate:make",
+    "start": "npx ts-node -r  tsconfig-paths/register ./src/shared/infra/http/server.ts",
+    "dev": "npx ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/shared/infra/http/server.ts"
   },
   "keywords": [
     "jest",
