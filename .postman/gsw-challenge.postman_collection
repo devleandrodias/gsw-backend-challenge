@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "04d9972d-6642-49ad-a1db-86d3c24c4f68",
+		"name": "GSW Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11240053"
+	},
+	"item": [
+		{
+			"name": "ATM",
+			"item": [
+				{
+					"name": "extract",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/atm/extract",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"atm",
+								"extract"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/atm/deposit",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"atm",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "withdraw",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/atm/withdraw",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"atm",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
